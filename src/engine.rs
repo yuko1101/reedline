@@ -847,6 +847,10 @@ impl Reedline {
                 }
             }
             ReedlineEvent::CtrlC => {
+                if self.editor.get_selection().is_some() {
+                    self.editor.run_edit_command(&EditCommand::CopySelectionSystem);
+                    return Ok(EventStatus::Handled);
+                }
                 self.input_mode = InputMode::Regular;
                 Ok(EventStatus::Exits(Signal::CtrlC))
             }
@@ -1078,6 +1082,10 @@ impl Reedline {
                 }
             }
             ReedlineEvent::CtrlC => {
+                if self.editor.get_selection().is_some() {
+                    self.editor.run_edit_command(&EditCommand::CopySelectionSystem);
+                    return Ok(EventStatus::Handled);
+                }
                 self.deactivate_menus();
                 self.run_edit_commands(&[EditCommand::Clear]);
                 self.editor.reset_undo_stack();
