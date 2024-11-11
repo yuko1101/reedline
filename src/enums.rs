@@ -255,6 +255,9 @@ pub enum EditCommand {
         select: bool,
     },
 
+    /// Select line
+    SelectLine,
+
     /// Select whole input buffer
     SelectAll,
 
@@ -361,6 +364,7 @@ impl Display for EditCommand {
             EditCommand::MoveRightBefore { .. } => write!(f, "MoveRightBefore Value: <char>"),
             EditCommand::CutLeftUntil(_) => write!(f, "CutLeftUntil Value: <char>"),
             EditCommand::CutLeftBefore(_) => write!(f, "CutLeftBefore Value: <char>"),
+            EditCommand::SelectLine => write!(f, "SelectLine"),
             EditCommand::SelectAll => write!(f, "SelectAll"),
             EditCommand::CutSelection => write!(f, "CutSelection"),
             EditCommand::CopySelection => write!(f, "CopySelection"),
@@ -402,6 +406,7 @@ impl EditCommand {
                 EditType::MoveCursor { select: *select }
             }
 
+            EditCommand::SelectLine => EditType::MoveCursor { select: true },
             EditCommand::SelectAll => EditType::MoveCursor { select: true },
             // Text edits
             EditCommand::InsertChar(_)
