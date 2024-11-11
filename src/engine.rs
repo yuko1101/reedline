@@ -847,6 +847,7 @@ impl Reedline {
                 }
             }
             ReedlineEvent::CtrlC => {
+                #[cfg(feature = "system_clipboard")]
                 if self.editor.get_selection().is_some() {
                     self.editor.run_edit_command(&EditCommand::CopySelectionSystem);
                     return Ok(EventStatus::Handled);
@@ -1082,6 +1083,7 @@ impl Reedline {
                 }
             }
             ReedlineEvent::CtrlC => {
+                #[cfg(feature = "system_clipboard")]
                 if self.editor.get_selection().is_some() {
                     self.editor.run_edit_command(&EditCommand::CopySelectionSystem);
                     return Ok(EventStatus::Handled);
