@@ -116,7 +116,6 @@ impl Editor {
             EditCommand::MoveLeftBefore { c, select } => {
                 self.move_left_until_char(*c, true, true, *select)
             }
-            EditCommand::SelectLine => self.select_line(),
             EditCommand::SelectAll => self.select_all(),
             EditCommand::CutSelection => self.cut_selection_to_cut_buffer(),
             EditCommand::CopySelection => self.copy_selection_to_cut_buffer(),
@@ -520,12 +519,6 @@ impl Editor {
     fn move_right(&mut self, select: bool) {
         self.update_selection_anchor(select);
         self.line_buffer.move_right();
-    }
-
-    fn select_line(&mut self) {
-        let line_range = self.line_buffer.current_line_range();
-        self.selection_anchor = Some(line_range.start);
-        self.move_to_line_end(true);
     }
 
     fn select_all(&mut self) {
