@@ -158,7 +158,7 @@ pub fn add_common_navigation_bindings(kb: &mut Keybindings) {
     kb.add_binding(
         KM::CONTROL,
         KC::Char('a'),
-        edit_bind(EC::MoveToLineStart { select: false }),
+        edit_bind(EC::SelectAll),
     );
     kb.add_binding(
         KM::NONE,
